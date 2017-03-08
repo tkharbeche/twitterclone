@@ -3,16 +3,15 @@
  * Created by PhpStorm.
  * User: Utilisateur
  * Date: 08/03/2017
- * Time: 12:41
+ * Time: 12:41.
  */
 
 namespace AppBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\DataFixtures\AbstractFixture;
-
 use AppBundle\Entity\Tweet;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -22,7 +21,7 @@ class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
             'hello world',
             'symfony its cool',
             'toto',
-            'superman'
+            'superman',
         ];
 
         foreach ($messages as $i => $message) {
