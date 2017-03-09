@@ -42,7 +42,7 @@ class TweetController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($tweet);
             $em->flush();
-
+            $this->addFlash("success", "Le tweet à bien été crée");
             return $this->redirectToRoute('app_tweet_list');
 //            return $this->redirectToRoute('app_tweet_view', array('id' => $tweet->getId()));
 

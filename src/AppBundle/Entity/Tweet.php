@@ -15,7 +15,6 @@ class Tweet
 {
     /**
      * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -25,13 +24,15 @@ class Tweet
     /**
      * @var string
      * @Assert\NotBlank(message="Message non renseigné")
+     * @Assert\Length( max = "160", maxMessage = "Le message doit contenir 160 caractères")
      * @ORM\Column(name="message", type="string", length=160)
      */
     private $message;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank()
+     * @Assert\DateTime()
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
