@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tweet.
@@ -23,7 +24,7 @@ class Tweet
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Message non renseigné")
      * @ORM\Column(name="message", type="string", length=160)
      */
     private $message;
