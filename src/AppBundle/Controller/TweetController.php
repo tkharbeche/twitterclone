@@ -6,6 +6,9 @@ use AppBundle\Entity\Tweet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class TweetController.
+ */
 class TweetController extends Controller
 {
     /**
@@ -19,6 +22,20 @@ class TweetController extends Controller
 
         return $this->render(':tweet:list.html.twig', [
             'tweets' => $tweets,
+        ]);
+    }
+
+    /**
+     * @Route("/tweet/{id}", name="app_tweet_view")
+     *
+     * @param $id
+     */
+    public function viewAction($id)
+    {
+        $tweetView = $this->getDoctrine()->getRepository(Tweet::class)->getTweet($id);
+
+        return $this->render(':tweet:view.html.twig', [
+           'tweetView' => $tweetView,
         ]);
     }
 }
