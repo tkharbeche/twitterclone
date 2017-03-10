@@ -20,9 +20,8 @@ class TweetController extends Controller
      */
     public function listAction()
     {
-        $tweets = $this->getDoctrine()->getRepository(Tweet::class)->getLastTweets(
-            $this->getParameter('app.tweet.nb_last', 10)
-        );
+        $tweetManager = $this->container->get('app.tweet_manager');
+        $tweets = $tweetManager->getLast();
 
         return $this->render(':tweet:list.html.twig', [
             'tweets' => $tweets,
@@ -34,19 +33,28 @@ class TweetController extends Controller
      */
     public function newAction(Request $request)
     {
-        $tweet = new Tweet();
+        $tweetManager = $this->container->get('app.tweet_manager');
+        $tweet = $tweetManager->create();
+
         $form = $this->createForm(TweetType::class, $tweet);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($tweet);
-            $em->flush();
+            $tweetManager->save($tweet);
+
+            $messageManager = $this->container->get('app.email_messenger');
+            $mes = $messageManager->sendTweetCreated($tweet);
+
+
             $this->addFlash("success", "Le tweet à bien été crée");
             return $this->redirectToRoute('app_tweet_list');
 //            return $this->redirectToRoute('app_tweet_view', array('id' => $tweet->getId()));
 
         }
+
+
+
+
         return $this->render(':tweet:new.html.twig', [
             'form' => $form->createView(),
         ]);
